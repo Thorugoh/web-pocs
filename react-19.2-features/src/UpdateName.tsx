@@ -8,11 +8,6 @@ async function updateName(name: string): Promise<string | null> {
   });
 }
 
-function redirect(path: string) {
-  console.log(`Redirecting to: ${path}`);
-  // In a real application, you would use a router here, e.g., navigate(path)
-}
-
 
 export function UpdateName({}) {
   const [name, setName] = useState("");
