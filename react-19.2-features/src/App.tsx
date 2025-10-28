@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { ChangeName } from './ChangeNameOptimistic'
 import { UpdateName } from './UpdateName'
+import { CommentsPage } from './UseComponent'
 
 function App() {
   const [name, setName] = useState("Victor")
@@ -10,6 +11,7 @@ function App() {
     <>
       <UpdateName />
       <ChangeName currentName={name} onUpdateName={setName} />
+      <CommentsPage /> 
     </>
   )
 }
