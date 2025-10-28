@@ -4,7 +4,7 @@ async function updateName(name: string): Promise<string | null> {
   return new Promise((resolve) => {
     setTimeout(() => {
         resolve(name);
-    }, 5000);
+    }, 2000);
   });
 }
 
