@@ -3,36 +3,38 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles/style.css" />
     <title>Extensions manager</title>
 </head>
 
 <body>
     <div id="main-header">
         <img src="assets/images/logo.svg" alt="logo image" />
-        <img src="assets/images/icon-moon.svg" alt="moon icon that indicates theme changing " />
+        <img id="icon-theme" src="assets/images/icon-moon.svg" alt="moon icon that indicates theme changing " />
     </div>
 
     <div id="list-header">
-        <div>
-            <h1>Extensions List</h1> 
-            <div id="filter-container">
-                <div class="chip">All</div>
-                <div class="chip">Active</div>
-                <div class="chip">Inactive</div>
-            </div>
+        <h1 class="text-preset-1">Extensions List</h1> 
+        <div id="filter-container">
+            <span class="unselected-chip">All</span>
+            <span class="unselected-chip">Active</span>
+            <span class="unselected-chip">Inactive</span>
         </div>
     </div>
 
     <div id="extensions-list">
-        <div id="extension-item">
-            <div>
-                <img />
-                <h3>Extension name</h3>
-                <p>Extension description</p>
+        <div class="extension-item">
+            <div class="extension-item-header">
+                <img class="extension-icon" src="assets/images/logo-devlens.svg" alt="logo image" />
+                <div class="extension-item-descriptions">
+                    <p class="text-preset-2">DevLens</p>
+                    <p class="text-preset-5">Quickly inspect page layouts and visualize element boundaries.</p>
+                </div>
             </div>
-            <button>Remove</button>
-            <div>
-                Toggle
+            <div class="extension-item-footer">
+                <button class="text-preset-6">Remove</button>
+                <input type="checkbox" id="toggle" />
+                <label for="toggle-checkbox" class="switch"></label>
             </div>
         </div>
     </div>
