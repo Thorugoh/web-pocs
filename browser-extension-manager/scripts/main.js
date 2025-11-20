@@ -10,21 +10,39 @@ class App {
         this.filteredData = this.data || [];
         console.log({data: this.data, f: this.filteredData});
         
-        const filterAllBtn = document.querySelector('#filter-all');
-        filterAllBtn.addEventListener('click', () => this.filterAll());
+        this.filterAllBtn = document.querySelector('#filter-all');
+        this.filterAllBtn.addEventListener('click', () => this.filterAll());
 
-        const filterActiveBtn = document.querySelector('#filter-active');
-        filterActiveBtn.addEventListener('click', () => this.filterActive());
+        this.filterActiveBtn = document.querySelector('#filter-active');
+        this.filterActiveBtn.addEventListener('click', () => this.filterActive());
 
-        const filterInactiveBtn = document.querySelector('#filter-inactive');
-        filterInactiveBtn.addEventListener('click', () => this.filterInactive());
+        this.filterInactiveBtn = document.querySelector('#filter-inactive');
+        this.filterInactiveBtn.addEventListener('click', () => this.filterInactive());
+
+        this.filterAll();
+    }
+
+    toggleSelectedButton(selectedBtnId) {
+        const buttons = [
+            this.filterAllBtn,
+            this.filterActiveBtn,
+            this.filterInactiveBtn
+        ];
         
-        this.filteredData.forEach(ext => {    
-            new ExtensionItem(ext.name, ext.isActive, ext.logo);
+        buttons.forEach(btn => {
+            if(btn.id === selectedBtnId) {
+                btn.classList.remove('unselected-chip');
+                btn.classList.add('selected-chip');
+            } else {
+                btn.classList.remove('selected-chip');
+                btn.classList.add('unselected-chip');
+            }
         });
     }
 
     filterAll() {
+        this.toggleSelectedButton('filter-all');
+
         const list = document.querySelector('#extensions-list');
         list.innerHTML = '';
 
@@ -34,6 +52,12 @@ class App {
     }
 
     filterActive(){
+        this.toggleSelectedButton('filter-active');
+
+        const filterActiveBtn = document.querySelector('#filter-active');
+        filterActiveBtn.classList.remove('unselected-chip');
+        filterActiveBtn.classList.add('selected-chip');
+
         const list = document.querySelector('#extensions-list');
         list.innerHTML = '';
         
@@ -42,7 +66,9 @@ class App {
         });
     }
 
-     filterInactive(){
+    filterInactive(){
+        this.toggleSelectedButton('filter-inactive');
+        
         const list = document.querySelector('#extensions-list');
         list.innerHTML = '';
         
