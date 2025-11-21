@@ -1,32 +1,50 @@
 import { loadTemplate } from "./utils.js";
 
 class ExtensionItem {
+    static #templateHtml = '';
+    static #templatePromise = null;
+
     constructor(name, isActive, icon) {
-        console.log({name, isActive, icon});
-        
-        loadTemplate('../templates/extension-item.html').then(templateHtml => {
-            const wrapper = document.createElement('div');
-            wrapper.innerHTML = templateHtml;
-            const tpl = wrapper.querySelector('template');
+        if (ExtensionItem.#templateHtml) {
+            this.render(name, isActive, icon, ExtensionItem.#templateHtml);
+            return;
+        }
 
-            const node = (tpl && tpl.content.firstElementChild)
-            ? tpl.content.firstElementChild.cloneNode(true)
-            : document.createElement('div');
+        if (!ExtensionItem.#templatePromise) {
+            ExtensionItem.#templatePromise = loadTemplate('../templates/extension-item.html')
+                .then(templateHtml => {
+                    ExtensionItem.#templateHtml = templateHtml;
+                    return templateHtml;
+                });
+        }
 
-            const iconEl = node.querySelector('.extension-icon');
-            const nameEl = node.querySelector('.extension-name');
-            const checkboxEl = node.querySelector('.switch input[type="checkbox"]');
+        ExtensionItem.#templatePromise.then(templateHtml => {
+            this.render(name, isActive, icon, templateHtml);
+        });
+    }
 
-            if (iconEl) iconEl.src = icon;
-            if (nameEl) nameEl.textContent = name;
-            if (checkboxEl) checkboxEl.checked = !!isActive;
+    render(name, isActive, icon, templateHtml) {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = templateHtml;
+        const tpl = wrapper.querySelector('template');
 
-            // store instance element
-            this.element = node;
+        const node = (tpl && tpl.content.firstElementChild)
+        ? tpl.content.firstElementChild.cloneNode(true)
+        : document.createElement('div');
 
-            const list = document.querySelector('#extensions-list');
-            if (list && this.element) list.appendChild(this.element);
-        });   
+        const iconEl = node.querySelector('.extension-icon');
+        const nameEl = node.querySelector('.extension-name');
+        const checkboxEl = node.querySelector('.switch input[type="checkbox"]');
+
+        if (iconEl) iconEl.src = icon;
+        if (nameEl) nameEl.textContent = name;
+        if (checkboxEl) checkboxEl.checked = !!isActive;
+
+        // store instance element
+        this.element = node;
+
+        const list = document.querySelector('#extensions-list');
+        if (list && this.element) list.appendChild(this.element);
     }
 
     bindRemoveExtension(handler) {

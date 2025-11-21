@@ -8,7 +8,6 @@ class App {
     async init() {
         this.data = await loadJsonFile('../data.json');
         this.filteredData = this.data || [];
-        console.log({data: this.data, f: this.filteredData});
         
         this.filterAllBtn = document.querySelector('#filter-all');
         this.filterAllBtn.addEventListener('click', () => this.filterAll());
@@ -53,10 +52,6 @@ class App {
 
     filterActive(){
         this.toggleSelectedButton('filter-active');
-
-        const filterActiveBtn = document.querySelector('#filter-active');
-        filterActiveBtn.classList.remove('unselected-chip');
-        filterActiveBtn.classList.add('selected-chip');
 
         const list = document.querySelector('#extensions-list');
         list.innerHTML = '';
