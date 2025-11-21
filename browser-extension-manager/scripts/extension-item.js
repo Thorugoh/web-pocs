@@ -3,12 +3,16 @@ import { loadTemplate } from "./utils.js";
 class ExtensionItem {
     static #templateHtml = '';
     static #templatePromise = null;
+    #name = '';
+    #isActive = false;
+    #icon = '';
+    #onRemove = null;
 
-    constructor(name, isActive, icon) {
-        if (ExtensionItem.#templateHtml) {
-            this.render(name, isActive, icon, ExtensionItem.#templateHtml);
-            return;
-        }
+    constructor(name, isActive, icon, { onRemove } = {}) {
+        this.#onRemove = onRemove;
+        this.#name = name;
+        this.#isActive = isActive;
+        this.#icon = icon;
 
         if (!ExtensionItem.#templatePromise) {
             ExtensionItem.#templatePromise = loadTemplate('../templates/extension-item.html')
@@ -17,15 +21,18 @@ class ExtensionItem {
                     return templateHtml;
                 });
         }
-
-        ExtensionItem.#templatePromise.then(templateHtml => {
-            this.render(name, isActive, icon, templateHtml);
-        });
     }
 
-    render(name, isActive, icon, templateHtml) {
+    render() {
+        if(!ExtensionItem.#templateHtml) {
+            console.log("not loaded");
+            
+            ExtensionItem.#templatePromise.then(() => this.render());
+            return;
+        }
+
         const wrapper = document.createElement('div');
-        wrapper.innerHTML = templateHtml;
+        wrapper.innerHTML = ExtensionItem.#templateHtml;
         const tpl = wrapper.querySelector('template');
 
         const node = (tpl && tpl.content.firstElementChild)
@@ -36,27 +43,34 @@ class ExtensionItem {
         const nameEl = node.querySelector('.extension-name');
         const checkboxEl = node.querySelector('.switch input[type="checkbox"]');
 
-        if (iconEl) iconEl.src = icon;
-        if (nameEl) nameEl.textContent = name;
-        if (checkboxEl) checkboxEl.checked = !!isActive;
+        if (iconEl) iconEl.src = this.#icon;
+        if (nameEl) nameEl.textContent = this.#name;
+        if (checkboxEl) checkboxEl.checked = !!this.#isActive;
 
         // store instance element
         this.element = node;
 
         const list = document.querySelector('#extensions-list');
         if (list && this.element) list.appendChild(this.element);
+
+        this.bindRemoveExtension(() => {
+            if (this.element && this.element.parentNode) {
+                this.element.parentNode.removeChild(this.element);
+            }
+        })
     }
 
-    bindRemoveExtension(handler) {
-        this.removeButton.addEventListener('click', () => {
-            handler();
-        });
+    bindRemoveExtension() {
+        const removeButton = this.element.querySelector('.remove-extension-button');
+        removeButton.addEventListener('click', this.#onRemove);
     }
 
-    bindToggleActive(handler) {
-        this.toggleActiveButton.addEventListener('change', () => {
-            handler(this.toggleActiveButton.checked);
-        });
+    #onToggle = () => {
+        this.#isActive = !this.#isActive;
+    }
+
+    bindToggleActive() {
+        this.toggleActiveButton.addEventListener('change', this.#onToggle);
     }
 }
 

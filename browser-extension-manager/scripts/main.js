@@ -3,11 +3,13 @@ import { loadJsonFile } from "./utils.js";
 
 class App {
     filteredData = [];
+    extensions = [];
     data = [];
 
     async init() {
         this.data = await loadJsonFile('../data.json');
-        this.filteredData = this.data || [];
+        
+        this.extensions = this.data.map(ext => new ExtensionItem(ext.name, ext.isActive, ext.logo));
         
         this.filterAllBtn = document.querySelector('#filter-all');
         this.filterAllBtn.addEventListener('click', () => this.filterAll());
@@ -44,9 +46,10 @@ class App {
 
         const list = document.querySelector('#extensions-list');
         list.innerHTML = '';
-
-        this.data.forEach(ext => {    
-            new ExtensionItem(ext.name, ext.isActive, ext.logo);
+        console.log({extensions: this.extensions});
+        
+        this.extensions?.forEach(ext => {    
+            ext.render();
         });
     }
 
