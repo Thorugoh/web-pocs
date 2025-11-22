@@ -59,9 +59,7 @@ class App {
         const list = document.querySelector('#extensions-list');
         list.innerHTML = '';
         
-        this.data.filter(ext => ext.isActive).forEach(ext => {    
-            new ExtensionItem(ext.name, ext.isActive, ext.logo);
-        });
+        this.extensions.filter(ext => ext.isActive).forEach(ext => ext.render())
     }
 
     filterInactive(){
@@ -70,9 +68,7 @@ class App {
         const list = document.querySelector('#extensions-list');
         list.innerHTML = '';
         
-        this.data.filter(ext => !ext.isActive).forEach(ext => {    
-            new ExtensionItem(ext.name, ext.isActive, ext.logo);
-        });
+        this.extensions.filter(ext => !ext.isActive).forEach(ext => ext.render())
     }
 }
 

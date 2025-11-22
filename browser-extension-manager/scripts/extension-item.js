@@ -23,6 +23,10 @@ class ExtensionItem {
         }
     }
 
+    get isActive() {
+        return this.#isActive;
+    }
+
     render() {
         if(!ExtensionItem.#templateHtml) {
             console.log("not loaded");
