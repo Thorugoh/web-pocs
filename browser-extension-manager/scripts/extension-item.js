@@ -29,8 +29,6 @@ class ExtensionItem {
 
     render() {
         if(!ExtensionItem.#templateHtml) {
-            console.log("not loaded");
-            
             ExtensionItem.#templatePromise.then(() => this.render());
             return;
         }
@@ -57,14 +55,16 @@ class ExtensionItem {
         const list = document.querySelector('#extensions-list');
         if (list && this.element) list.appendChild(this.element);
 
-        this.bindRemoveExtension(() => {
+        this.#bindRemoveExtension(() => {
             if (this.element && this.element.parentNode) {
                 this.element.parentNode.removeChild(this.element);
             }
         })
+
+        this.#bindToggleActive();
     }
 
-    bindRemoveExtension() {
+    #bindRemoveExtension() {
         const removeButton = this.element.querySelector('.remove-extension-button');
         removeButton.addEventListener('click', this.#onRemove);
     }
@@ -73,8 +73,9 @@ class ExtensionItem {
         this.#isActive = !this.#isActive;
     }
 
-    bindToggleActive() {
-        this.toggleActiveButton.addEventListener('change', this.#onToggle);
+    #bindToggleActive() {
+        const toggleActiveButton = this.element.querySelector('.switch input[type="checkbox"]');
+        toggleActiveButton.addEventListener('change', this.#onToggle);
     }
 }
 

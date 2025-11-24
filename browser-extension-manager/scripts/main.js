@@ -46,8 +46,7 @@ class App {
 
         const list = document.querySelector('#extensions-list');
         list.innerHTML = '';
-        console.log({extensions: this.extensions});
-        
+
         this.extensions?.forEach(ext => {    
             ext.render();
         });
