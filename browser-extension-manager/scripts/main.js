@@ -9,7 +9,10 @@ class App {
     async init() {
         this.data = await loadJsonFile('../data.json');
         
-        this.extensions = this.data.map(ext => new ExtensionItem(ext.name, ext.isActive, ext.logo));
+        this.extensions = this.data.map(ext => new ExtensionItem(ext.name, ext.isActive, ext.logo, { 
+            onClickToggle: () => this.applyCurrentFilter(),
+            onRemove: () => this.applyCurrentFilter()
+        }));
         
         this.filterAllBtn = document.querySelector('#filter-all');
         this.filterAllBtn.addEventListener('click', () => this.filterAll());
@@ -41,7 +44,14 @@ class App {
         });
     }
 
+    applyCurrentFilter() {
+        if (this.currentFilter === 'all') this.filterAll();
+        else if (this.currentFilter === 'active') this.filterActive();
+        else if (this.currentFilter === 'inactive') this.filterInactive();
+    }
+
     filterAll() {
+        this.currentFilter = 'all';
         this.toggleSelectedButton('filter-all');
 
         const list = document.querySelector('#extensions-list');
@@ -53,6 +63,7 @@ class App {
     }
 
     filterActive(){
+        this.currentFilter = 'active';
         this.toggleSelectedButton('filter-active');
 
         const list = document.querySelector('#extensions-list');
@@ -62,6 +73,7 @@ class App {
     }
 
     filterInactive(){
+        this.currentFilter = 'inactive';
         this.toggleSelectedButton('filter-inactive');
         
         const list = document.querySelector('#extensions-list');

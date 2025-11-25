@@ -7,9 +7,11 @@ class ExtensionItem {
     #isActive = false;
     #icon = '';
     #onRemove = null;
+    #onClickToggle = null;
 
-    constructor(name, isActive, icon, { onRemove } = {}) {
+    constructor(name, isActive, icon, { onRemove, onClickToggle } = {}) {
         this.#onRemove = onRemove;
+        this.#onClickToggle = onClickToggle;
         this.#name = name;
         this.#isActive = isActive;
         this.#icon = icon;
@@ -71,6 +73,7 @@ class ExtensionItem {
 
     #onToggle = () => {
         this.#isActive = !this.#isActive;
+        this.#onClickToggle?.();
     }
 
     #bindToggleActive() {
