@@ -29,6 +29,10 @@ class ExtensionItem {
         return this.#isActive;
     }
 
+    get name() {
+        return this.#name;
+    }
+
     render() {
         if(!ExtensionItem.#templateHtml) {
             ExtensionItem.#templatePromise.then(() => this.render());

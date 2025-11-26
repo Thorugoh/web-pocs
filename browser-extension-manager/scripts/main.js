@@ -11,7 +11,10 @@ class App {
         
         this.extensions = this.data.map(ext => new ExtensionItem(ext.name, ext.isActive, ext.logo, { 
             onClickToggle: () => this.applyCurrentFilter(),
-            onRemove: () => this.applyCurrentFilter()
+            onRemove: () => {
+                this.extensions = this.extensions.filter(e => e.name !== ext.name);
+                this.applyCurrentFilter()
+            }
         }));
         
         this.filterAllBtn = document.querySelector('#filter-all');
