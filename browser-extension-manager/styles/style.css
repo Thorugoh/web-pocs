@@ -118,6 +118,7 @@ html {
 body {
     width: 60%;
     margin: 50px auto;
+    justify-items: center;
 }
 
 button {
@@ -194,6 +195,7 @@ button:hover {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     padding: var(--spacing-150) var(--spacing-200);
 
     border: 1px solid var(--neutral-200);
@@ -213,6 +215,7 @@ button:hover {
 }
 
 #list-header {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -224,8 +227,6 @@ button:hover {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
-    align-items: center;
     gap: var(--spacing-150);
 }
 
