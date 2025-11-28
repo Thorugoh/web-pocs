@@ -214,13 +214,23 @@ button:hover {
     opacity: 0.8;
 }
 
+
 #list-header {
     width: 100%;
+    height: 90px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding: var(--spacing-800) 0 var(--spacing-400);
+    flex-wrap: wrap;
+}
+
+@media (max-width: 975px) {
+  #list-header {
+    justify-content: center;
+    gap: var(--spacing-150);
+  }
 }
 
 #extensions-list {
