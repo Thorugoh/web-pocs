@@ -1,5 +1,5 @@
-import { loadTemplate } from "../scripts/utils";
-import  { ExtensionModel } from "../model/ExtensionModel";
+import { loadTemplate } from "../scripts/utils.js";
+import  { ExtensionModel } from "../model/ExtensionModel.js";
 export class ExtensionItemView {
     static #templateHtml = ''
     #iconEl = null;
@@ -38,6 +38,8 @@ export class ExtensionItemView {
             : document.createElement('div');
 
         this.#iconEl = node.querySelector('.extension-icon');
+        console.log({icon: this.model.icon});
+        
         if(this.#iconEl) this.#iconEl.src = this.model.icon;
 
         this.#nameEl = node.querySelector('.extension-name');
@@ -49,11 +51,13 @@ export class ExtensionItemView {
         this.#descriptionEl = node.querySelector('.extension-description');
         if(this.#descriptionEl) this.#descriptionEl.textContent = this.model.description
 
-        this.#removeBtn = this.element.querySelector('.remove-extension-button');
+        this.#removeBtn = node.querySelector('.remove-extension-button');
        
         if(this.#removeBtn) {
             this.#removeBtn.addEventListener('click', this.#onRemove);
         }
+
+        return node;
     }
 
     bindToggle(handler) {
