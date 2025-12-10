@@ -1,3 +1,6 @@
+import { loadJsonFile } from "../scripts/utils.js";
+import { ExtensionModel } from "./ExtensionModel.js";
+
 export class ExtensionManagerModel {
     #extensions = [];
 
@@ -8,7 +11,7 @@ export class ExtensionManagerModel {
                 data.name, 
                 data.isActive, 
                 data.description, 
-                data.icon
+                data.logo
             )
         })
     }

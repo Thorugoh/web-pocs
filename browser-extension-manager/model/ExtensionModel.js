@@ -1,4 +1,4 @@
-class ExtensionModel {
+export class ExtensionModel {
     #isActive = false;
     #name = "";
     #description = "";
@@ -18,5 +18,6 @@ class ExtensionModel {
 
     toggleStatus() {
         this.#isActive = !this.#isActive
+        return this.#isActive
     }
 }
