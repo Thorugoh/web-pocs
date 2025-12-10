@@ -1,90 +1,106 @@
+import { ExtensionItemController } from "../controller/ExtensionItemController.js";
+import { ExtensionManagerController } from "../controller/ExtensionManagerController.js";
+import { ExtensionManagerModel } from "../model/ExtensionManagerModel.js";
+import { ExtensionItemView } from "../views/ExtensionItemView.js";
+import { ExtensionManagerView } from "../views/ExtensionManagerView.js";
 import { ExtensionItem } from "./extension-item.js";
 import { loadJsonFile } from "./utils.js";
 
-class App {
-    filteredData = [];
-    extensions = [];
-    data = [];
+// class App {
+//     filteredData = [];
+//     extensions = [];
+//     data = [];
 
-    async init() {
-        this.data = await loadJsonFile('../data.json');
+//     async init() {
+//         this.data = await loadJsonFile('../data.json');
         
-        this.extensions = this.data.map(ext => new ExtensionItem(ext.name, ext.isActive, ext.logo, { 
-            onClickToggle: () => this.applyCurrentFilter(),
-            onRemove: () => {
-                this.extensions = this.extensions.filter(e => e.name !== ext.name);
-                this.applyCurrentFilter()
-            }
-        }));
+//         this.extensions = this.data.map(ext => new ExtensionItem(ext.name, ext.isActive, ext.logo, { 
+//             onClickToggle: () => this.applyCurrentFilter(),
+//             onRemove: () => {
+//                 this.extensions = this.extensions.filter(e => e.name !== ext.name);
+//                 this.applyCurrentFilter()
+//             }
+//         }));
         
-        this.filterAllBtn = document.querySelector('#filter-all');
-        this.filterAllBtn.addEventListener('click', () => this.filterAll());
+//         this.filterAllBtn = document.querySelector('#filter-all');
+//         this.filterAllBtn.addEventListener('click', () => this.filterAll());
 
-        this.filterActiveBtn = document.querySelector('#filter-active');
-        this.filterActiveBtn.addEventListener('click', () => this.filterActive());
+//         this.filterActiveBtn = document.querySelector('#filter-active');
+//         this.filterActiveBtn.addEventListener('click', () => this.filterActive());
 
-        this.filterInactiveBtn = document.querySelector('#filter-inactive');
-        this.filterInactiveBtn.addEventListener('click', () => this.filterInactive());
+//         this.filterInactiveBtn = document.querySelector('#filter-inactive');
+//         this.filterInactiveBtn.addEventListener('click', () => this.filterInactive());
 
-        this.filterAll();
-    }
+//         this.filterAll();
+//     }
 
-    toggleSelectedButton(selectedBtnId) {
-        const buttons = [
-            this.filterAllBtn,
-            this.filterActiveBtn,
-            this.filterInactiveBtn
-        ];
+//     toggleSelectedButton(selectedBtnId) {
+//         const buttons = [
+//             this.filterAllBtn,
+//             this.filterActiveBtn,
+//             this.filterInactiveBtn
+//         ];
         
-        buttons.forEach(btn => {
-            if(btn.id === selectedBtnId) {
-                btn.classList.remove('unselected-chip');
-                btn.classList.add('selected-chip');
-            } else {
-                btn.classList.remove('selected-chip');
-                btn.classList.add('unselected-chip');
-            }
-        });
-    }
+//         buttons.forEach(btn => {
+//             if(btn.id === selectedBtnId) {
+//                 btn.classList.remove('unselected-chip');
+//                 btn.classList.add('selected-chip');
+//             } else {
+//                 btn.classList.remove('selected-chip');
+//                 btn.classList.add('unselected-chip');
+//             }
+//         });
+//     }
 
-    applyCurrentFilter() {
-        if (this.currentFilter === 'all') this.filterAll();
-        else if (this.currentFilter === 'active') this.filterActive();
-        else if (this.currentFilter === 'inactive') this.filterInactive();
-    }
+//     applyCurrentFilter() {
+//         if (this.currentFilter === 'all') this.filterAll();
+//         else if (this.currentFilter === 'active') this.filterActive();
+//         else if (this.currentFilter === 'inactive') this.filterInactive();
+//     }
 
-    filterAll() {
-        this.currentFilter = 'all';
-        this.toggleSelectedButton('filter-all');
+//     filterAll() {
+//         this.currentFilter = 'all';
+//         this.toggleSelectedButton('filter-all');
 
-        const list = document.querySelector('#extensions-list');
-        list.innerHTML = '';
+//         const list = document.querySelector('#extensions-list');
+//         list.innerHTML = '';
 
-        this.extensions?.forEach(ext => {    
-            ext.render();
-        });
-    }
+//         this.extensions?.forEach(ext => {    
+//             ext.render();
+//         });
+//     }
 
-    filterActive(){
-        this.currentFilter = 'active';
-        this.toggleSelectedButton('filter-active');
+//     filterActive(){
+//         this.currentFilter = 'active';
+//         this.toggleSelectedButton('filter-active');
 
-        const list = document.querySelector('#extensions-list');
-        list.innerHTML = '';
+//         const list = document.querySelector('#extensions-list');
+//         list.innerHTML = '';
         
-        this.extensions.filter(ext => ext.isActive).forEach(ext => ext.render())
-    }
+//         this.extensions.filter(ext => ext.isActive).forEach(ext => ext.render())
+//     }
 
-    filterInactive(){
-        this.currentFilter = 'inactive';
-        this.toggleSelectedButton('filter-inactive');
+//     filterInactive(){
+//         this.currentFilter = 'inactive';
+//         this.toggleSelectedButton('filter-inactive');
         
-        const list = document.querySelector('#extensions-list');
-        list.innerHTML = '';
+//         const list = document.querySelector('#extensions-list');
+//         list.innerHTML = '';
         
-        this.extensions.filter(ext => !ext.isActive).forEach(ext => ext.render())
-    }
-}
+//         this.extensions.filter(ext => !ext.isActive).forEach(ext => ext.render())
+//     }
+// }
 
-const app = new App();
-app.init();
+// class App {
+
+// }
+
+// const app = new App();
+// app.init();
+
+const model = new ExtensionManagerModel();
+const view = new ExtensionManagerView();
+
+const controller = new ExtensionManagerController(view, model);
+
+await controller.init();
