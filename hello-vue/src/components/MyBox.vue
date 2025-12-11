@@ -1,10 +1,18 @@
 <template>
-    <div class="box">1</div>
+    <div class="box">
+        {{  text }}
+    </div>
 </template>
 
 <script>
     export default {
-        name: 'MyBox'
+        name: 'MyBox',
+        props: {
+            text: {
+                type: String,
+                default: 'N/A'
+            }
+        }
     }
 </script>
 
