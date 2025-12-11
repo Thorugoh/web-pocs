@@ -1,8 +1,8 @@
 <template>
   <div class="container-box">
-    <MyBox text="1" />
-    <MyBox text="2" />
-    <MyBox text="3"/>
+    <MyBox name="Victor" age="29"/>
+    <MyBox name="Hugo" age="20" />
+    <MyBox name="Oliveira" age="25"/>
   </div>
 
 </template>

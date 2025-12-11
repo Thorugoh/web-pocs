@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        {{  text }}
+        {{ name }} - {{ age }}
     </div>
 </template>
 
@@ -8,9 +8,13 @@
     export default {
         name: 'MyBox',
         props: {
-            text: {
+            name: {
                 type: String,
                 default: 'N/A'
+            },
+            age: {
+                type: Number,
+                required: true
             }
         }
     }
@@ -18,8 +22,8 @@
 
 <style>
     .box {
-        width: 30px;
-        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
         background-color: red;
         justify-content: center;
         align-items: center;
