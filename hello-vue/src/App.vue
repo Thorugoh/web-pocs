@@ -1,7 +1,7 @@
 <template>
   <div class="container-box">
-    <MyBox name="Victor" age="29"/>
-    <MyBox name="Hugo" age="20" />
+    <MyBox name="Victor" age="29" status="active"/>
+    <MyBox name="Hugo" age="20" status="inactive"/>
     <MyBox name="Oliveira" age="25"/>
   </div>
 
