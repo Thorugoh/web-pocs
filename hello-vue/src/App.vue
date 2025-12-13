@@ -1,19 +1,34 @@
 <template>
   <div class="container-box">
-    <MyBox name="Victor" age="29" status="active"/>
-    <MyBox name="Hugo" age="20" status="inactive"/>
+    <MyBox name="Victor" :age="count" status="active"/>
+    <MyBox name="Hugo" age="20" status="something else"/>
     <MyBox name="Oliveira" age="25"/>
+    <h2>{{ count }}</h2>
+    <MyButton @increment="incrementCount"/>
   </div>
 
 </template>
 
 <script>
+
 import MyBox from "./components/MyBox.vue";
+import MyButton from "./components/MyButton.vue";
 
 export default {
   name: 'App',
   components: {
-    MyBox
+    MyBox,
+    MyButton,
+  },
+  data() {
+    return {
+      count: 0
+    }
+  },
+  methods: {
+    incrementCount() {
+      this.count++;
+    }
   }
 }
 </script>
@@ -21,11 +36,12 @@ export default {
 <style>
   .container-box {
     display: flex;
+    flex: 1;
     flex-direction: row;
-    justify-content: space-between;
-    width: 200px;
+    justify-content: center;
     border: 1px solid black;
     padding: 10px;
+    gap: 10px;
   }
 
   #app {
