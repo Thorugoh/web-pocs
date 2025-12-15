@@ -4,7 +4,18 @@
     <MyBox name="Hugo" age="20" status="something else"/>
     <MyBox name="Oliveira" age="25"/>
     <h2>{{ count }}</h2>
-    <MyButton @increment="incrementCount"/>
+    <MyButton 
+      title="+1"
+      @update="incrementCount"
+    />
+    <MyButton 
+      title="-1"
+      @update="decrement"
+    />
+    <MyButton 
+    title="clear"
+      @update="clear"
+    />
   </div>
 
 </template>
@@ -28,6 +39,12 @@ export default {
   methods: {
     incrementCount() {
       this.count++;
+    },
+    decrement() {
+      this.count--;
+    },
+    clear() {
+      this.count = 0;
     }
   }
 }
