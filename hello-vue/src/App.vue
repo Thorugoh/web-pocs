@@ -4,32 +4,21 @@
     <MyBox name="Hugo" age="20" status="something else"/>
     <MyBox name="Oliveira" age="25"/>
     <h2>{{ count }}</h2>
-    <MyButton 
-      title="+1"
-      @update="incrementCount"
-    />
-    <MyButton 
-      title="-1"
-      @update="decrement"
-    />
-    <MyButton 
-    title="clear"
-      @update="clear"
-    />
+    <CounterButtons @changeCount="handleCountChange"/>
   </div>
 
 </template>
 
 <script>
 
+import CounterButtons from "./components/CounterButtons.vue";
 import MyBox from "./components/MyBox.vue";
-import MyButton from "./components/MyButton.vue";
 
 export default {
   name: 'App',
   components: {
     MyBox,
-    MyButton,
+    CounterButtons,
   },
   data() {
     return {
@@ -37,6 +26,19 @@ export default {
     }
   },
   methods: {
+    handleCountChange(action, value = 1) {
+      switch(action) {
+        case 'increment':
+          this.count += value;
+          break;
+        case 'decrement':
+          this.count -= value;
+          break;
+        case 'clear':
+          this.count = 0;
+          break;
+      }
+    },
     incrementCount() {
       this.count++;
     },
