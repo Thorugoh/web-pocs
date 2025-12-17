@@ -6,7 +6,10 @@
     <h2 :style="{color: changeColorCount}">
       {{ count }}
     </h2>
-    <CounterButtons @changeCount="handleCountChange"/>
+    <p :style="{color: changeColorCount}">
+     {{ countState }}
+    </p>
+    <CounterButtons :count-value="count" @changeCount="handleCountChange"/>
   </div>
 
 </template>
@@ -29,13 +32,15 @@ export default {
   },
   computed: {
     changeColorCount(){
-      if(this.count > 0){
-        return 'green';
-      } else if(this.count < 0){
-        return 'red';
-      } else {
-        return 'black';
-      }
+      if(this.count > 0) return 'green';
+      else if(this.count < 0) return 'red';
+      return 'black';
+      
+    },
+    countState() {
+      if(this.count > 0) return 'positive';
+      else if(this.count < 0) return 'negative';
+      return 'neutral';
     }
   },
   methods: {
