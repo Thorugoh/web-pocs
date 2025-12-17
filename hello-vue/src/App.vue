@@ -3,7 +3,9 @@
     <MyBox name="Victor" :age="count" status="active"/>
     <MyBox name="Hugo" age="20" status="something else"/>
     <MyBox name="Oliveira" age="25"/>
-    <h2>{{ count }}</h2>
+    <h2 :style="{color: changeColorCount}">
+      {{ count }}
+    </h2>
     <CounterButtons @changeCount="handleCountChange"/>
   </div>
 
@@ -23,6 +25,17 @@ export default {
   data() {
     return {
       count: 0
+    }
+  },
+  computed: {
+    changeColorCount(){
+      if(this.count > 0){
+        return 'green';
+      } else if(this.count < 0){
+        return 'red';
+      } else {
+        return 'black';
+      }
     }
   },
   methods: {
