@@ -43,6 +43,11 @@ export default {
       return 'neutral';
     }
   },
+  watch: {
+    count(newValue, oldValue) {
+      alert(`Count changed from ${oldValue} to ${newValue}`);
+    }
+  },
   methods: {
     handleCountChange(action, value = 1) {
       switch(action) {
