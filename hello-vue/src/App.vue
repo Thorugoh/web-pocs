@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      count: 0
+      count: Number(localStorage.getItem('count')) || 0,
     }
   },
   computed: {
@@ -44,8 +44,8 @@ export default {
     }
   },
   watch: {
-    count(newValue, oldValue) {
-      alert(`Count changed from ${oldValue} to ${newValue}`);
+    count(newValue) {
+      localStorage.setItem('count', newValue);
     }
   },
   methods: {
