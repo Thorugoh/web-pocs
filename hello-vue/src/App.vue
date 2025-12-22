@@ -44,6 +44,9 @@ export default {
     }
   },
   watch: {
+    changeColorCount(newColor) {
+      console.log('Color changed to:', newColor);
+    },
     count(newValue) {
       localStorage.setItem('count', newValue);
     }
