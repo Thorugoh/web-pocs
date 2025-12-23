@@ -1,80 +1,14 @@
 <template>
   <div class="container-box">
-    <MyBox name="Victor" :age="count" status="active"/>
-    <MyBox name="Hugo" age="20" status="something else"/>
-    <MyBox name="Oliveira" age="25"/>
-    <h2 :style="{color: changeColorCount}">
-      {{ count }}
-    </h2>
-    <p :style="{color: changeColorCount}">
-     {{ countState }}
-    </p>
-    <CounterButtons :count-value="count" @changeCount="handleCountChange"/>
+
   </div>
 
 </template>
 
 <script>
 
-import CounterButtons from "./components/CounterButtons.vue";
-import MyBox from "./components/MyBox.vue";
-
 export default {
   name: 'App',
-  components: {
-    MyBox,
-    CounterButtons,
-  },
-  data() {
-    return {
-      count: Number(localStorage.getItem('count')) || 0,
-    }
-  },
-  computed: {
-    changeColorCount(){
-      if(this.count > 0) return 'green';
-      else if(this.count < 0) return 'red';
-      return 'black';
-      
-    },
-    countState() {
-      if(this.count > 0) return 'positive';
-      else if(this.count < 0) return 'negative';
-      return 'neutral';
-    }
-  },
-  watch: {
-    changeColorCount(newColor) {
-      console.log('Color changed to:', newColor);
-    },
-    count(newValue) {
-      localStorage.setItem('count', newValue);
-    }
-  },
-  methods: {
-    handleCountChange(action, value = 1) {
-      switch(action) {
-        case 'increment':
-          this.count += value;
-          break;
-        case 'decrement':
-          this.count -= value;
-          break;
-        case 'clear':
-          this.count = 0;
-          break;
-      }
-    },
-    incrementCount() {
-      this.count++;
-    },
-    decrement() {
-      this.count--;
-    },
-    clear() {
-      this.count = 0;
-    }
-  }
 }
 </script>
 
