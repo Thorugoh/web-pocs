@@ -13,12 +13,20 @@
         <div class="tasks-container">
             <div class="pending-tasks">
                 <h3>Pending Tasks</h3>
-                <TaskItem :task="{id: 12, done: false }"/>
+                <TaskItem
+                    @remove-task="removeTask"
+                    @toggle-done="toggleTaskDone" 
+                    :task="tasks[0]"
+                />
             </div>
 
             <div class="completed-tasks">
                 <h3>Completed Tasks</h3>
-                <TaskItem :task="{id: 13, done: true}" />
+                <TaskItem 
+                    @remove-task="removeTask"
+                    @toggle-done="toggleTaskDone" 
+                    :task="tasks[1]" 
+                />
             </div>
 
             <span>Counter components</span>
@@ -34,6 +42,23 @@ export default {
     name: 'TaskList',
     components: {
         TaskItem
+    },
+    data() {
+        return {
+            tasks: [{id: 12, done: false }, {id: 13, done: true }],
+        };
+    },
+    methods: {
+        removeTask(taskId) {
+            this.tasks = this.tasks.filter(task => task.id !== taskId);
+        },
+        toggleTaskDone(taskId) {
+            const task = this.tasks.find(task => task.id === taskId);
+            if (task) {
+                task.done = !task.done; 
+            }
+        }
+
     }
 }
 </script>

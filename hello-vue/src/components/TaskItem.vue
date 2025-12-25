@@ -2,8 +2,18 @@
     <div>
         <span class="task-id"># {{ task?.id }}</span>
         <span class="task-status">{{ textStatus }}</span>
-        <button class="btn-toggle">{{ btnToggleText }}</button>
-        <button class="btn-remove">Delete</button>
+        <button 
+            @click="toggleDone" 
+            class="btn-toggle"
+        >
+            {{ btnToggleText }}
+        </button>
+        <button 
+            @click="removeTask" 
+            class="btn-remove"
+        >
+            Delete
+        </button>
     </div>
 </template>
 
@@ -22,6 +32,14 @@
             },
             textStatus() {
                 return this.task?.done ? 'Done' : 'Pending';
+            }
+        },
+        methods: {
+            toggleDone() {
+                this.$emit('toggle-done', this.task.id);
+            },
+            removeTask() {
+                this.$emit('remove-task', this.task.id);
             }
         }
     }
