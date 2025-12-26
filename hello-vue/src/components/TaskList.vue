@@ -31,6 +31,12 @@
 
             <span>Counter components</span>
         </div>
+            <div class="watch-output">
+            <h4>Task Watch Output:</h4>
+            <div class="log-container">
+                <div v-for="(log, index) in logs" :key="index">{{ log }}</div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -46,6 +52,7 @@ export default {
     data() {
         return {
             tasks: [{id: 12, done: false }, {id: 13, done: true }],
+            logs: [ ]
         };
     },
     methods: {
@@ -53,12 +60,25 @@ export default {
             this.tasks = this.tasks.filter(task => task.id !== taskId);
         },
         toggleTaskDone(taskId) {
-            const task = this.tasks.find(task => task.id === taskId);
-            if (task) {
-                task.done = !task.done; 
-            }
+            this.tasks = this.tasks.map(task => 
+                task.id === taskId 
+                    ? { ...task, done: !task.done }
+                    : task
+            );
         }
-
+    },
+    watch: {
+        tasks: {
+            handler(newTasks, oldTasks) {
+                const modified = newTasks.filter((task, index) => 
+                    task.done !== oldTasks[index].done
+                );
+                this.logs.push(...modified.map(task => 
+                    `${new Date().toLocaleTimeString()}: Task #${task.id} status changed to ${task.done ? 'Done' : 'Pending'}`
+                ));
+            },
+            deep: true
+        }
     }
 }
 </script>
@@ -140,6 +160,22 @@ export default {
         margin-bottom: 15px;
         color: #2c3e50;
         text-align: center;
+    }
+
+    .watch-output {
+        background-color: #2c3e50;
+        color: white;
+        padding: 15px;
+        border-radius: 6px;
+    }
+    .log-container {
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: #1a252f;
+        padding: 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+        font-family: monospace;
     }
 
 </style>
