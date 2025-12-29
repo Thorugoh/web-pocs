@@ -14,18 +14,22 @@
             <div class="pending-tasks">
                 <h3>Pending Tasks</h3>
                 <TaskItem
+                    v-for="task in pendingTasks"
+                    :key="task.id"
                     @remove-task="removeTask"
                     @toggle-done="toggleTaskDone" 
-                    :task="tasks[0]"
+                    :task="task"
                 />
             </div>
 
             <div class="completed-tasks">
                 <h3>Completed Tasks</h3>
-                <TaskItem 
+                <TaskItem
+                    v-for="task in completedTasks"
+                    :key="task.id"
                     @remove-task="removeTask"
                     @toggle-done="toggleTaskDone" 
-                    :task="tasks[1]" 
+                    :task="task"
                 />
             </div>
 
@@ -67,17 +71,27 @@ export default {
             );
         }
     },
+    computed:{
+        completedTasks() {
+            return this.tasks.filter(task => task.done);
+        },
+        pendingTasks() {
+            return this.tasks.filter(task => !task.done);
+        }
+    },
     watch: {
         tasks: {
             handler(newTasks, oldTasks) {
                 const modified = newTasks.filter((task, index) => 
                     task.done !== oldTasks[index].done
                 );
-                this.logs.push(...modified.map(task => 
-                    `${new Date().toLocaleTimeString()}: Task #${task.id} status changed to ${task.done ? 'Done' : 'Pending'}`
-                ));
+                if(modified) {
+                    this.logs.push(...modified.map(task => 
+                        `${new Date().toLocaleTimeString()}: Task #${task.id} status changed to ${task.done ? 'Done' : 'Pending'}`
+                    ));
+                }
             },
-            deep: true
+            deep: true,
         }
     }
 }
