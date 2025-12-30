@@ -1,7 +1,7 @@
 <template>
     <div>
         <span class="task-id"># {{ task?.id }}</span>
-        <span class="task-status">{{ textStatus }}</span>
+        <span class="task-id"># {{ task?.title }}</span>
         <button 
             @click="toggleDone" 
             class="btn-toggle"
@@ -30,9 +30,6 @@
             btnToggleText() {
                 return this.task?.done ? 'Undo' : 'Complete';
             },
-            textStatus() {
-                return this.task?.done ? 'Done' : 'Pending';
-            }
         },
         methods: {
             toggleDone() {

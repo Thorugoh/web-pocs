@@ -55,7 +55,7 @@ export default {
     },
     data() {
         return {
-            tasks: [{id: 12, done: false }, {id: 13, done: true }],
+            tasks: [{id: 12, title: "First task", done: false }, {id: 13, title: "Second task", done: true }],
             logs: [ ]
         };
     },
