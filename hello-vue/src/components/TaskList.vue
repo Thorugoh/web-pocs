@@ -10,6 +10,21 @@
             </button>
         </div>  
 
+        <div class="add-task-container">
+            <input 
+                v-model="taskTitle"
+                class="task-input" 
+                type="text" 
+                placeholder="New task title..." 
+            />
+            <button
+                class="btn-add"
+                @click="addTask"
+            >
+            Add
+        </button>
+        </div>
+
         <div class="tasks-container">
             <div class="pending-tasks">
                 <h3>Pending Tasks</h3>
@@ -56,7 +71,8 @@ export default {
     data() {
         return {
             tasks: [{id: 12, title: "First task", done: false }, {id: 13, title: "Second task", done: true }],
-            logs: [ ]
+            logs: [ ],
+            taskTitle: '',
         };
     },
     methods: {
@@ -69,6 +85,18 @@ export default {
                     ? { ...task, done: !task.done }
                     : task
             );
+        },
+        addTask() {
+            if(this.taskTitle.trim() === '') return;
+
+            const newTask = {
+                id: Date.now(),
+                title: this.taskTitle,
+                done: false,
+            };
+
+            this.tasks.push(newTask);
+            this.taskTitle = '';
         }
     },
     computed:{
@@ -191,5 +219,17 @@ export default {
         margin-top: 10px;
         font-family: monospace;
     }
-
+    .add-task-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+    .task-input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
 </style>

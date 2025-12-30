@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="task-item">
         <span class="task-id"># {{ task?.id }}</span>
-        <span class="task-id"># {{ task?.title }}</span>
+        <span class="task-id">{{ task?.title }}</span>
         <button 
             @click="toggleDone" 
             class="btn-toggle"
@@ -52,7 +52,6 @@
         background-color: white;
         border: 1px solid #ddd;
         transition: all 0.3s;
-
     }
     .task-id {
         font-weight: bold;
