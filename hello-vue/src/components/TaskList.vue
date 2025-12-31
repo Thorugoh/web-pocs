@@ -3,14 +3,14 @@
         <h2>Task List</h2>
 
         <div class="controls">
-            <button class="btn-add">Add Task</button>
+            <button @click="toggleForm" :class="buttonClass">{{ buttonText }}</button>
             <button class="btn-toggle-all">Mark All Done</button>
             <button class="btn-clear">
                 Clear Completed
             </button>
         </div>  
 
-        <div class="add-task-container">
+        <div v-if="showForm" class="add-task-container">
             <input 
                 v-model="taskTitle"
                 class="task-input" 
@@ -73,6 +73,7 @@ export default {
             tasks: [{id: 12, title: "First task", done: false }, {id: 13, title: "Second task", done: true }],
             logs: [ ],
             taskTitle: '',
+            showForm: false,
         };
     },
     methods: {
@@ -97,6 +98,10 @@ export default {
 
             this.tasks.push(newTask);
             this.taskTitle = '';
+            this.showForm = false;
+        },
+        toggleForm() {
+            this.showForm = !this.showForm;
         }
     },
     computed:{
@@ -105,6 +110,12 @@ export default {
         },
         pendingTasks() {
             return this.tasks.filter(task => !task.done);
+        },
+        buttonText() {
+            return this.showForm ? 'Close' : 'Add Task';
+        },
+        buttonClass() {
+            return this.showForm ? 'btn-close' : 'btn-add';
         }
     },
     watch: {
@@ -156,6 +167,10 @@ export default {
     }
     .btn-add {
         background-color: #2ecc71;
+        color: white;
+    }
+    .btn-close {
+        background-color: #e67e22;
         color: white;
     }
     .btn-add:hover {
