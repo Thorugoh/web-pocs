@@ -28,18 +28,23 @@
         <div class="tasks-container">
             <div class="pending-tasks">
                 <h3>Pending Tasks</h3>
-                <TaskItem
-                    v-for="task in pendingTasks"
-                    :key="task.id"
-                    @remove-task="removeTask"
-                    @toggle-done="toggleTaskDone" 
-                    :task="task"
-                />
+                <p v-if="pendingTasks.length === 0">You have no pending tasks</p>
+                <div v-else>
+                    <TaskItem
+                        v-for="task in pendingTasks"
+                        :key="task.id"
+                        @remove-task="removeTask"
+                        @toggle-done="toggleTaskDone" 
+                        :task="task"
+                    />
+                </div>
             </div>
 
             <div class="completed-tasks">
                 <h3>Completed Tasks</h3>
+                <p v-if="completedTasks.length === 0">You have no completed tasks</p>
                 <TaskItem
+                    v-else
                     v-for="task in completedTasks"
                     :key="task.id"
                     @remove-task="removeTask"
@@ -50,7 +55,15 @@
 
             <span>Counter components</span>
         </div>
-            <div class="watch-output">
+        <div>
+            <h3>Summary</h3>
+            <p v-if="tasks.length === 0">You have no task yet.</p>
+            <p v-else-if="pendingTasks.length > 0 && completedTasks.length === 0">Pending tasks: {{ pendingTasks.length }}</p>
+            <p v-else-if="completedTasks.length > 0 && pendingTasks.length === 0">Completed tasks: {{ completedTasks.length }}</p>
+            <p v-else>You have {{ completedTasks.length }} completed tasks and {{ pendingTasks.length }} pending.</p>
+        </div>
+
+        <div class="watch-output">
             <h4>Task Watch Output:</h4>
             <div class="log-container">
                 <div v-for="(log, index) in logs" :key="index">{{ log }}</div>
