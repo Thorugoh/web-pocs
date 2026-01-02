@@ -31,6 +31,7 @@
                 <p v-if="pendingTasks.length === 0">You have no pending tasks</p>
                 <div v-else>
                     <TaskItem
+                        v-once
                         v-for="task in pendingTasks"
                         :key="task.id"
                         @remove-task="removeTask"
@@ -44,6 +45,7 @@
                 <h3>Completed Tasks</h3>
                 <p v-if="completedTasks.length === 0">You have no completed tasks</p>
                 <TaskItem
+                    v-once
                     v-else
                     v-for="task in completedTasks"
                     :key="task.id"
