@@ -106,10 +106,10 @@ export default {
         console.log('TaskList: mounted');
     },
     beforeUpdate(){
-        console.log('before updating component tree');
+        console.log('TaskList -> beforeUpdated');
     },
     updated(){
-        console.log('component tree updated');
+        console.log('TaskList -> Updated');
     },
     methods: {
         removeTask(taskId) {

@@ -31,6 +31,18 @@
                 return this.task?.done ? 'Undo' : 'Complete';
             },
         },
+        beforeUpdate(){
+            console.log(`TaskItem ${this.task.title} -> beforeUpdated`);
+        },
+        updated(){
+            console.log(`TaskItem ${this.task.title} -> Updated`);
+        },
+        beforeUnmount(){
+            console.log(`TaskItem #${this.task.id} will be unmounted.`);
+        },
+        unmounted(){
+            console.log(`TaskItem #${this.task.id} has been unmounted.`);
+        },
         methods: {
             toggleDone() {
                 this.$emit('toggle-done', this.task.id);
