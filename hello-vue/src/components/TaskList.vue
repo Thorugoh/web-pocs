@@ -96,8 +96,11 @@ export default {
         console.log('task: ', this.tasks);    
     },
     created() {
-        console.log('TaskList: created');
-        console.log('task: ', this.tasks);    
+        try {
+            this.tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        }catch(e) {
+            console.error('Failed to load tasks from localStorage:', e);
+        }
     },
     beforeMount(){
         console.log('TaskList: beforeMount');
@@ -156,6 +159,12 @@ export default {
     watch: {
         tasks: {
             handler(newTasks, oldTasks) {
+                try {
+                    localStorage.setItem('tasks', JSON.stringify(newTasks));
+                }catch(e) {
+                    console.error('Failed to save tasks to localStorage:', e);
+                }
+
                 const modified = newTasks.filter((task, index) => 
                     task.done !== oldTasks[index].done
                 );
