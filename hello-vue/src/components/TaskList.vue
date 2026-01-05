@@ -91,6 +91,14 @@ export default {
             showForm: false,
         };
     },
+    beforeCreate() {
+        console.log('TaskList: beforeCreate');
+        console.log('task: ', this.tasks);    
+    },
+    created() {
+        console.log('TaskList: created');
+        console.log('task: ', this.tasks);    
+    },
     methods: {
         removeTask(taskId) {
             this.tasks = this.tasks.filter(task => task.id !== taskId);
