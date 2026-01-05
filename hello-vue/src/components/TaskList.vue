@@ -99,6 +99,18 @@ export default {
         console.log('TaskList: created');
         console.log('task: ', this.tasks);    
     },
+    beforeMount(){
+        console.log('TaskList: beforeMount');
+    },
+    mounted(){
+        console.log('TaskList: mounted');
+    },
+    beforeUpdate(){
+        console.log('before updating component tree');
+    },
+    updated(){
+        console.log('component tree updated');
+    },
     methods: {
         removeTask(taskId) {
             this.tasks = this.tasks.filter(task => task.id !== taskId);
