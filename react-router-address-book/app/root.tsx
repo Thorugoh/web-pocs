@@ -10,9 +10,8 @@ import type { Route } from "./+types/root";
 import { getContacts } from "./data";
 import appStylesHref from "./app.css?url";
 
-export async function clientLoader(){
-  const contacts = await getContacts();
-  return { contacts };
+export default function App() {
+  return <Outlet />;
 }
 
 export function HydrateFallback() {
@@ -25,9 +24,6 @@ export function HydrateFallback() {
   )
 }
 
-export default function App() {
-  return <Outlet />;
-}
 
 // The Layout component is a special export for the root route.
 // It acts as your document's "app shell" for all route components, HydrateFallback, and ErrorBoundary

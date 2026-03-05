@@ -7,6 +7,8 @@ export async function clientLoader() {
   return { contacts };
 }
 
+
+
 export default function SidebarLayout({
   loaderData,
 }: Route.ComponentProps) {
