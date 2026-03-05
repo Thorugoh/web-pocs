@@ -15,6 +15,16 @@ export async function clientLoader(){
   return { contacts };
 }
 
+export function HydrateFallback() {
+  return(
+    <div id="loading-splash">
+      <div id="loading-splash-spinner">
+        <p>Loading, please wait...</p>
+      </div>
+    </div>
+  )
+}
+
 export default function App({ loaderData }: Route.ComponentProps) {
   const { contacts } = loaderData;
   return (
