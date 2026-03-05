@@ -1,13 +1,10 @@
 import {
-  Form,
-  Link,
   Outlet,
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
 } from "react-router";
 import type { Route } from "./+types/root";
-import { getContacts } from "./data";
 import appStylesHref from "./app.css?url";
 
 export default function App() {
